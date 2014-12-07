@@ -36,9 +36,6 @@ on init
     # 0 indicates that virtual display is not a Wifi display and that the
     # session is not exercised through RemoteDisplay in the android framework
     setprop persist.sys.wfd.virtual 0
-    # Immersion
-    export VIBE_PIPE_PATH /dev/pipes
-    mkdir /dev/pipes 0771 system system
 
 # import cne init file
 on post-fs
@@ -75,7 +72,6 @@ on post-fs-data
     mkdir /tombstones/lpass 0771 system system
     mkdir /tombstones/wcnss 0771 system system
     mkdir /tombstones/dsps 0771 system system
-    chmod 777 /data/qmi-framework-tests/qmi_xiaomi_id_test
     mkdir /persist/property 0700 root root
 
     chmod 0600 /dev/bcm2079x
@@ -91,7 +87,6 @@ on post-fs-data
     chmod 0660 /dev/sysmatdrv
 
 on boot
-    insmod /system/lib/modules/adsprpc.ko
     chown system system /sys/class/input/input0/enabled
     chown system system /sys/class/input/input1/enabled
     chown system system /sys/class/input/input2/enabled
@@ -101,10 +96,6 @@ on boot
     chown system system /sys/class/input/input6/enabled
     chown system system /sys/bus/i2c/devices/2-004a/golden_ref
     chown system system /sys/bus/i2c/devices/2-004a/golden_en
-    chown system system /sys/bus/i2c/devices/2-0048/auto_tune
-    chown system system /sys/bus/i2c/devices/2-004b/hover_tune
-    chown system system /sys/bus/i2c/devices/2-004b/hover_from_flash
-    exec /system/bin/sh /system/bin/atmel_hover_tune.sh
 
 
 # Dynamically modify golden_ref setting
@@ -182,7 +173,9 @@ service qseecomd /system/bin/qseecomd
    group root
 
 service mpdecision /system/bin/mpdecision --avg_comp
+   class main
    user root
+   group system
    disabled
 
 service qosmgrd /system/bin/qosmgr /system/etc/qosmgr_rules.xml
@@ -191,17 +184,14 @@ service qosmgrd /system/bin/qosmgr /system/etc/qosmgr_rules.xml
    disabled
 
 service thermal-engine /system/bin/thermal-engine
-   class main
    user root
-   group radio system
+   group root
+   disabled
 
-service security-check1 /sbin/security_boot_check system
-    class core
-    oneshot
-
-service security-check2 /sbin/security_boot_check recovery
-    class core
-    oneshot
+service thermal-perf /system/bin/thermal-engine --config /system/etc/thermal-engine-perf.conf
+   user root
+   group root
+   disabled
 
 service time_daemon /system/bin/time_daemon
    class late_start
@@ -217,36 +207,6 @@ service audiod /system/bin/audiod
    class late_start
    user system
    group system
-
-service usf_tester /system/bin/usf_tester
-    user system
-    group system inet
-    disabled
-
-service usf_epos /system/bin/usf_epos
-    user system
-    group system inet
-    disabled
-
-service usf_gesture /system/bin/usf_gesture
-    user system
-    group system inet
-    disabled
-
-service usf_p2p /system/bin/usf_p2p
-    user system
-    group system inet
-    disabled
-
-service usf_hovering /system/bin/usf_hovering
-    user system
-    group system inet
-    disabled
-
-service usf_proximity /system/bin/usf_proximity
-    user system
-    group system inet
-    disabled
 
 service usf-post-boot /system/bin/sh /system/etc/usf_post_boot.sh
     class late_start
@@ -273,7 +233,7 @@ service imsdatadaemon /system/bin/imsdatadaemon
 service wcnss-service /system/bin/wcnss_service
     class late_start
     user system
-    group system wifi
+    group system wifi qcom_diag radio
     oneshot
 
 service sysmatsir /system/bin/smonsir
@@ -292,12 +252,6 @@ on property:persist.sys.matsir.enable=1
     setprop sys.sysmat.service.control start
     start sysmatsir
     start sysmatpro
-
-service immvibed /system/bin/immvibed
-    class late_start
-    user system
-    group system
-    oneshot
 
 on property:sys.ims.QMI_DAEMON_STATUS=1
     start imsdatadaemon
@@ -366,6 +320,12 @@ on property:persist.sys.display_idle=0
     write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0xF0000
 
 service sensorext /system/bin/sensorextd
+    class late_start
+    user root
+    group root
+    disabled
+
+service sensorservice /system/bin/sensorservice
     class late_start
     user root
     group root
