@@ -41,14 +41,15 @@ PRODUCT_PACKAGES += \
 
 # Init
 PRODUCT_COPY_FILES += \
-    init.class_main.sh \
-    init.mdm.sh \
-    init.qcom.class_core.sh \
-    init.qcom.early_boot.sh \
-    init.qcom.factory.sh \
-    init.qcom.sh \
-    init.qcom.ssr.sh \
-    init.qcom.syspart_fixup.sh 
+    $(LOCAL_PATH)/rootdir/etc/init.class_main.sh:root/init.class_main.sh \
+    $(LOCAL_PATH)/rootdir/etc/init.mdm.sh:root/init.mdm.sh \
+    $(LOCAL_PATH)/rootdir/etc/init.qcom.class_core.sh:root/init.qcom.class_core.sh \
+    $(LOCAL_PATH)/rootdir/etc/init.qcom.early_boot.sh:root/init.qcom.early_boot.sh \
+    $(LOCAL_PATH)/rootdir/etc/init.qcom.factory.sh:root/init.qcom.factory.sh \
+    $(LOCAL_PATH)/rootdir/etc/init.qcom.sh:root/init.qcom.sh \
+    $(LOCAL_PATH)/rootdir/etc/init.qcom.ssr.sh:root/init.qcom.ssr.sh \
+    $(LOCAL_PATH)/rootdir/etc/init.qcom.syspart_fixup.sh:root/init.qcom.syspart_fixup.sh \
+    $(LOCAL_PATH)/rootdir/etc/init.qcom.usb.sh:root/init.qcom.usb.sh 
 
 # Audio
 PRODUCT_COPY_FILES += \
