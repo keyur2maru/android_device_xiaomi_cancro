@@ -302,7 +302,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Charger
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/root/chargeonlymode:root/sbin/chargeonlymode
+    $(LOCAL_PATH)/rootdir/etc/chargeonlymode:root/sbin/chargeonlymode
 
 # NFC packages
 PRODUCT_PACKAGES += \
