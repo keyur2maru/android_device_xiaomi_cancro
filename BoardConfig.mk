@@ -151,6 +151,12 @@ TARGET_USES_BLOCK_BASED_OTA := false
 # QCOM PowerHAL
 TARGET_POWERHAL_VARIANT := qcom
 
+# Releasetools
+TARGET_RELEASETOOLS_EXTENSIONS := $(COMMON_PATH)
+
+# LOGD
+TARGET_USES_LOGD := false
+
 # inherit from the proprietary version
 ifneq ($(QCPATH),)
 -include $(QCPATH)/xiaomi/cancro/BoardConfigVendor.mk
