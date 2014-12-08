@@ -76,6 +76,8 @@ struct tc_estimator {
 struct tc_ratespec {
 	unsigned char	cell_log;
 	unsigned char	__reserved;
+	unsigned char   feature;		
+	unsigned char   addend;
 	unsigned short	overhead;
 	short		cell_align;
 	unsigned short	mpu;
