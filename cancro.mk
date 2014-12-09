@@ -43,7 +43,6 @@ PRODUCT_PACKAGES += \
 
 # Init
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/etc/init.class_main.sh:root/init.class_main.sh \
     $(LOCAL_PATH)/rootdir/etc/init.mdm.sh:root/init.mdm.sh \
     $(LOCAL_PATH)/rootdir/etc/init.qcom.class_core.sh:root/init.qcom.class_core.sh \
     $(LOCAL_PATH)/rootdir/etc/init.qcom.early_boot.sh:root/init.qcom.early_boot.sh \
