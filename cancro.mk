@@ -226,6 +226,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
+# Development settings
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    ro.debuggable=1 \
+    ro.adb.secure=0 \
+    ro.secure=0 
+
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 persist.sys.usb.config=mtp \
 persist.usb.hvdcp.detect=true
