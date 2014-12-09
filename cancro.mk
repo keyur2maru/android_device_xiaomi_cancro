@@ -199,7 +199,7 @@ PRODUCT_COPY_FILES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    power.qcom
+    power.msm8974
 
 # QRNGD
 PRODUCT_PACKAGES += \
@@ -217,6 +217,12 @@ PRODUCT_PACKAGES += \
 # Kernel
 PRODUCT_COPY_FILES += \
  $(LOCAL_PATH)/dt.img:dt.img
+
+# Kernel Modules
+PRODUCT_PACKAGES += \
+    pronto_wlan.ko \
+    radio-iris-transport.ko \
+    scsi_wait_scan.ko
 
 # Thermal config
 PRODUCT_COPY_FILES += \

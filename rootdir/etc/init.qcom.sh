@@ -39,6 +39,7 @@ start_sensors()
 {
     if [ -c /dev/msm_dsps -o -c /dev/sensors ]; then
         mkdir -p /data/system/sensors
+        chown -h system.system /data/system/sensors
         touch /data/system/sensors/settings
         chmod -h 775 /data/system/sensors
         chmod -h 664 /data/system/sensors/settings
@@ -177,6 +178,12 @@ fi
 if [ $(getprop ro.boot.hwversion | grep -e 4[0-9]) ]; then
     echo 20 > /sys/class/leds/button-backlight/max_brightness
     echo 20 > /sys/class/leds/button-backlight1/max_brightness
+fi
+
+# update the brightness to meet the requirement from HW
+if [ $(getprop ro.boot.hwversion | grep -e 5[0-9]) ]; then
+    echo 70 > /sys/class/leds/button-backlight/max_brightness
+    echo 70 > /sys/class/leds/button-backlight1/max_brightness
 fi
 
 case "$target" in
