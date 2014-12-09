@@ -222,6 +222,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine-8974.conf
 
+# Dualboot init
+PRODUCT_PACKAGES += \
+    dualboot_init
+
 # USB
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
