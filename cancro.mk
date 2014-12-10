@@ -238,8 +238,7 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.secure=0 
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-persist.sys.usb.config=mtp \
-persist.usb.hvdcp.detect=true
+    persist.sys.usb.config=mtp
 
 # WiFi
 PRODUCT_COPY_FILES += \
