@@ -215,7 +215,7 @@ PRODUCT_COPY_FILES += \
 
 # Kernel Modules
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/modules/pronto_wlan.ko:system/lib/modules/pronto//pronto_wlan.ko \
+    $(LOCAL_PATH)/rootdir/modules/pronto_wlan.ko:system/lib/modules/pronto/pronto_wlan.ko \
     $(LOCAL_PATH)/rootdir/modules/scsi_wait_scan.ko:system/lib/modules/scsi_wait_scan.ko \
     $(LOCAL_PATH)/rootdir/modules/radio-iris-transport.ko:system/lib/modules/radio-iris-transport.ko 
 
