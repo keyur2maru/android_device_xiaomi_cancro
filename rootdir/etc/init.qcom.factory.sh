@@ -151,8 +151,8 @@
     chown -h system.system /sys/power/autosleep
     chown -h system.system /sys/power/state
     chown -h system.system /sys/power/wakeup_count
-    chown -h radio.system /sys/power/wake_lock
-    chown -h radio.system /sys/power/wake_unlock
+    chown -h system.system /sys/power/wake_lock
+    chown -h system.system /sys/power/wake_unlock
     chmod -h 0660 /sys/power/state
     chmod -h 0660 /sys/power/wake_lock
     chmod -h 0660 /sys/power/wake_unlock

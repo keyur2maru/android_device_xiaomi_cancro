@@ -41,22 +41,33 @@ on init
     mkdir /dev/pipes 0771 system system
 
 # import cne init file
-#on post-fs
-#    export LD_PRELOAD /vendor/lib/libNimsWrap.so
+on post-fs
+    export LD_PRELOAD /vendor/lib/libNimsWrap.so
 
 on fs
-    mount_all fstab.qcom
+    #exec /sbin/dualboot_init ./fstab.qcom
+    #mount_all ./fstab.qcom.patched
+    mount_all ./fstab.qcom
 
     # Keeping following partitions outside fstab file. As user may not have
     # these partition flashed on the device. Failure to mount any partition in fstab file
     # results in failure to launch late-start class.
 
-    restorecon_recursive   /persist
-    mkdir /persist/data 0700 system system
-    mkdir /persist/data/sfs 0700 system system
-    mkdir /persist/data/tz 0700 system system
+#    wait /dev/block/platform/msm_sdcc.1/by-name/system1
+#    exec /sbin/e2fsck_static -y ${LOCAL_ENV_CURR_SYSTEM}
+#    mount ext4 ${LOCAL_ENV_CURR_SYSTEM} /system ro barrier=1
 
-    mount vfat ${LOCAL_ENV_CURR_MODEM} /firmware ro context=u:object_r:firmware_file:s0,shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337
+#    wait /dev/block/platform/msm_sdcc.1/by-name/userdata
+#    exec /system/bin/sh /system/bin/mount_ext4.sh /dev/block/platform/msm_sdcc.1/by-name/userdata /data
+
+#    wait /dev/block/platform/msm_sdcc.1/by-name/cache
+#    exec /system/bin/sh /system/bin/mount_ext4.sh /dev/block/platform/msm_sdcc.1/by-name/cache /cache
+
+#    wait /dev/block/platform/msm_sdcc.1/by-name/persist
+#    exec /system/bin/sh /system/bin/mount_ext4.sh /dev/block/platform/msm_sdcc.1/by-name/persist /persist
+    restorecon /persist
+
+#    mount vfat ${LOCAL_ENV_CURR_MODEM} /firmware wait ro shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337
 
 on post-fs-data
     mkdir /data/tombstones 0771 system system
@@ -64,7 +75,7 @@ on post-fs-data
     mkdir /tombstones/lpass 0771 system system
     mkdir /tombstones/wcnss 0771 system system
     mkdir /tombstones/dsps 0771 system system
-    chmod 777 /data/qmi-framework-tests/qmi_xiaomi_id_test
+   chmod 777 /data/qmi-framework-tests/qmi_xiaomi_id_test
     mkdir /persist/property 0700 root root
 
     chmod 0600 /dev/bcm2079x
@@ -94,7 +105,6 @@ on boot
     chown system system /sys/bus/i2c/devices/2-004b/hover_tune
     chown system system /sys/bus/i2c/devices/2-004b/hover_from_flash
     exec /system/bin/sh /system/bin/atmel_hover_tune.sh
-
 
 # Dynamically modify golden_ref setting
 on property:persist.atmel.golden.enable=1
@@ -144,6 +154,12 @@ service qgesturesvr /system/bin/mm-gesture-daemon
     user system
     group system camera input graphics net_bt_stack
 
+#start GNSS/Sensor interface daemon
+service gsiff_daemon /system/bin/gsiff_daemon
+    class late_start
+    user gps
+    group gps net_raw misc
+
 service qrngd /system/bin/qrngd -f
     class main
     user root
@@ -180,6 +196,7 @@ service thermal-engine /system/bin/thermal-engine
    socket thermal-send-client stream 0666 system system
    socket thermal-recv-client stream 0660 system system
    socket thermal-recv-passive-client stream 0666 system system
+
    group root
    disabled
 
@@ -254,19 +271,19 @@ service imsqmidaemon /system/bin/imsqmidaemon
     class main
     user system
     socket ims_qmid stream 0660 system radio
-    group radio net_raw log qcom_diag
+    group ims radio net_raw log qcom_diag
 
 service imsdatadaemon /system/bin/imsdatadaemon
     class main
     user system
     socket ims_datad stream 0660 system radio
-    group system wifi radio inet net_raw log qcom_diag net_admin
+    group system ims wifi radio inet net_raw log qcom_diag net_admin
     disabled
 
 service wcnss-service /system/bin/wcnss_service
     class late_start
     user system
-    group system wifi
+    group system wifi qcom_diag radio
     oneshot
 
 service sysmatsir /system/bin/smonsir
@@ -298,8 +315,8 @@ on property:sys.ims.QMI_DAEMON_STATUS=1
 service ims_rtp_daemon /system/bin/ims_rtp_daemon
    class main
    user system
-   socket ims_rtpd stream 0660 system radio
-   group radio net_raw diag qcom_diag log
+   socket ims_rtpd stream 0660 system ims
+   group ims net_raw diag qcom_diag log
    disabled
 
 service imscmservice /system/bin/imscmservice
@@ -309,8 +326,8 @@ service imscmservice /system/bin/imscmservice
    disabled
 
 on property:sys.ims.DATA_DAEMON_STATUS=1
-   start ims_rtp_daemon
-   start imscmservice
+    start ims_rtp_daemon
+    start imscmservice
 
 service ppd /system/bin/mm-pp-daemon
     class late_start
@@ -326,26 +343,6 @@ service nqs /system/bin/nqs
     socket nqs_qsb_comm stream 660 system system
     user system
     group drmrpc
-
-service changepowermode /system/bin/changepowermode.sh
-    user root
-    oneshot
-    disabled
-
-on property:persist.sys.aries.power_profile=high
-    start changepowermode
-    stop thermal-engine
-    start thermal-perf
-
-on property:persist.sys.aries.power_profile=middle
-    start changepowermode
-    stop thermal-perf
-    start thermal-engine
-
-on property:persist.sys.aries.power_profile=low
-    start changepowermode
-    stop thermal-perf
-    start thermal-engine
 
 on property:persist.sys.display_prefer=0
     write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0x2
@@ -384,4 +381,5 @@ on property:persist.sys.display_idle=1
     write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0xA0000
 on property:persist.sys.display_idle=0
     write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0xF0000
+
 

@@ -218,10 +218,10 @@ PRODUCT_COPY_FILES += \
  $(LOCAL_PATH)/dt.img:dt.img
 
 # Kernel Modules
-PRODUCT_PACKAGES += \
-    pronto_wlan.ko \
-    radio-iris-transport.ko \
-    scsi_wait_scan.ko
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/modules/pronto_wlan.ko:system/lib/modules/pronto_wlan.ko \
+    $(LOCAL_PATH)/rootdir/modules/scsi_wait_scan.ko:system/lib/modules/scsi_wait_scan.ko \
+    $(LOCAL_PATH)/rootdir/modules/radio-iris-transport.ko:system/lib/modules/radio-iris-transport.ko 
 
 # Thermal config
 PRODUCT_COPY_FILES += \
@@ -365,6 +365,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/android_model_faceg.dat:system/etc/android_model_faceg.dat \
     $(LOCAL_PATH)/rootdir/etc/hsic.control.bt.sh:system/etc/hsic.control.bt.sh \
     $(LOCAL_PATH)/rootdir/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
+    $(LOCAL_PATH)/rootdir/etc/init.class_main.sh:root/init.class_main.sh \
     $(LOCAL_PATH)/rootdir/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh \
     $(LOCAL_PATH)/rootdir/etc/init.qcom.modem_links.sh:system/etc/init.qcom.modem_links.sh \
     $(LOCAL_PATH)/rootdir/etc/init.qcom.post_boot.sh:system/etc/init.qcom.post_boot.sh \
