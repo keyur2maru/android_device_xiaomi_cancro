@@ -228,10 +228,6 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.adb.secure=0 \
     ro.secure=0 
 
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-persist.sys.usb.config=mtp \
-persist.usb.hvdcp.detect=true
-
 # WiFi
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
