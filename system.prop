@@ -159,28 +159,11 @@ audio.offload.gapless.enabled=false
 audio.offload.disable=1
 audio.offload.pcm.enable=false
 
-# disable strictmode
-persist.sys.strictmode.disable=true
-
-# button jack mode & switch
-persist.sys.button_jack_profile=volume
-persist.sys.button_jack_switch=0
-
-# media button for headset hook
-persist.sys.button_headset_hook=media
-
 # open OMH for cdma
 persist.omh.enabled=true
 
 # for charging
 persist.usb.hvdcp.detect=true
-
-# for emulated sdcard
-ro.miui.internal.storage=/data/media
-
-# enable auto-brightness adjustment
-persist.power.useautobrightadj=true
-
 
 ro.qc.sdk.izat.premium_enabled=1
 ro.qc.sdk.izat.service_mask=0x5
