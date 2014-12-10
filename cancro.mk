@@ -214,6 +214,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
  $(LOCAL_PATH)/dt.img:dt.img
 
+# Kernel Modules
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/modules/pronto_wlan.ko:system/lib/modules/pronto/pronto_wlan.ko \
+    $(LOCAL_PATH)/rootdir/modules/scsi_wait_scan.ko:system/lib/modules/scsi_wait_scan.ko \
+    $(LOCAL_PATH)/rootdir/modules/radio-iris-transport.ko:system/lib/modules/radio-iris-transport.ko 
+
 # Thermal config
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine-8974.conf
