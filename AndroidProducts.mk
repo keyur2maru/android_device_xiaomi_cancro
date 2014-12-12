@@ -16,4 +16,5 @@
 
 PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/aosp_canro.mk \
+    $(LOCAL_DIR)/omni_canro.mk \
     $(LOCAL_DIR)/canro.mk 

@@ -1,0 +1,32 @@
+[
+  {
+    "remote":      "omnirom",
+    "repository": "android_device_qcom_common",
+    "target_path": "device/qcom/common"
+  },
+  {
+   "remote":      "github",
+   "repository": "CyanogenMod/android_hardware_qcom_fm",
+   "target_path": "hardware/qcom/fm",
+   "revision":    "cm-11.0"
+  },
+  {
+    "remote":      "github",   
+    "repository": "CyanogenMod/android_hardware_qcom_display-caf-new",
+    "target_path": "hardware/qcom/display-caf-new",
+    "revision":    "cm-11.0"
+   
+  },
+  {
+    "remote":      "github",
+    "repository": "CyanogenMod/android_hardware_qcom_media-caf-new",
+    "target_path": "hardware/qcom/media-caf-new",
+    "revision":    "cm-11.0"
+  },
+  {
+    "remote":      "github",
+    "repository": "CyanogenMod/android_frameworks_opt_connectivity",
+    "target_path": "frameworks/opt/connectivity",
+    "revision":    "cm-11.0"
+  }
+]
