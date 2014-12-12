@@ -119,26 +119,13 @@ BOARD_PERSISTIMAGE_PARTITION_SIZE := 16777216
 BOARD_TOMBSTONESIMAGE_PARTITION_SIZE := 73400320
 
 # Recovery
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
+BOARD_HAS_NO_SELECT_BUTTON := true
+BOARD_RECOVERY_SWIPE := true
 TARGET_RECOVERY_FSTAB            := device/xiaomi/cancro/rootdir/etc/fstab.qcom
 RECOVERY_FSTAB_VERSION           := 2
-TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-BOARD_RECOVERY_SWIPE := true
-BOARD_NATIVE_DUALBOOT := true
-BOARD_NATIVE_DUALBOOT_SINGLEDATA := true
 TARGET_RECOVERY_LCD_BACKLIGHT_PATH := \"/sys/class/leds/lcd-backlight/brightness\"
-
-USE_CHINESE_RECOVERY := false
-ifneq ($(USE_CHINESE_RECOVERY),true)
-BOARD_USE_CUSTOM_RECOVERY_FONT   := \"roboto_23x41.h\"
-BOARD_CUSTOM_RECOVERY_UI         := \
-	../../$(COMMON_PATH)/recovery/dualboot.c \
-	../../$(COMMON_PATH)/recovery/recovery_ui.c
-else
-BOARD_USE_CUSTOM_RECOVERY_FONT   := \"fontcn46_28x73.h\"
-BOARD_CUSTOM_RECOVERY_UI         := \
-	../../$(COMMON_PATH)/recovery/dualboot_cn.c \
-	../../$(COMMON_PATH)/recovery/recovery_ui_cn.c
-endif
 
 # No old RPC for prop
 TARGET_NO_RPC := true
@@ -166,20 +153,16 @@ USE_MINIKIN := true
 EXTENDED_FONT_FOOTPRINT := true
 
 # Disable Block Based OTA
-BLOCK_BASED_OTA := false
+TARGET_USES_BLOCK_BASED_OTA := false
 
 # QCOM PowerHAL
 TARGET_POWERHAL_VARIANT := qcom
-CM_POWERHAL_EXTENSION := qcom
 
 # Releasetools
 TARGET_RELEASETOOLS_EXTENSIONS := device/xiaomi/cancro
 
 # LOGD
 TARGET_USES_LOGD := false
-
-# Consumer IR
-TARGET_PROVIDES_CONSUMERIR_HAL := true
 
 # inherit from the proprietary version
 ifneq ($(QCPATH),)

@@ -43,6 +43,7 @@ PRODUCT_PACKAGES += \
 
 # Init
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/etc/init.class_main.sh:root/init.class_main.sh \
     $(LOCAL_PATH)/rootdir/etc/init.mdm.sh:root/init.mdm.sh \
     $(LOCAL_PATH)/rootdir/etc/init.qcom.class_core.sh:root/init.qcom.class_core.sh \
     $(LOCAL_PATH)/rootdir/etc/init.qcom.early_boot.sh:root/init.qcom.early_boot.sh \
@@ -143,6 +144,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/quipc.conf:system/etc/quipc.conf \
     $(LOCAL_PATH)/gps/sap.conf:system/etc/sap.conf
 
+# Lights
+PRODUCT_PACKAGES += \
+    lights.msm8974
+
 # IPC router config
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
@@ -213,29 +218,17 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
  $(LOCAL_PATH)/dt.img:dt.img
 
-# Kernel Modules
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/modules/pronto_wlan.ko:system/lib/modules/pronto/pronto_wlan.ko \
-    $(LOCAL_PATH)/rootdir/modules/scsi_wait_scan.ko:system/lib/modules/scsi_wait_scan.ko \
-    $(LOCAL_PATH)/rootdir/modules/radio-iris-transport.ko:system/lib/modules/radio-iris-transport.ko 
-
 # Thermal config
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine-8974.conf
-
-# Dualboot init
-PRODUCT_PACKAGES += \
-    dualboot_init
 
 # USB
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
-# Development settings
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.debuggable=1 \
-    ro.adb.secure=0 \
-    ro.secure=0 
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+persist.sys.usb.config=mtp \
+persist.usb.hvdcp.detect=true
 
 # WiFi
 PRODUCT_COPY_FILES += \
@@ -357,8 +350,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/android_model_faceg.dat:system/etc/android_model_faceg.dat \
     $(LOCAL_PATH)/rootdir/etc/hsic.control.bt.sh:system/etc/hsic.control.bt.sh \
     $(LOCAL_PATH)/rootdir/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
-    $(LOCAL_PATH)/rootdir/etc/init.class_main.sh:root/init.class_main.sh \
-    $(LOCAL_PATH)/rootdir/etc/lowi.conf:system/etc/lowi.conf \
     $(LOCAL_PATH)/rootdir/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh \
     $(LOCAL_PATH)/rootdir/etc/init.qcom.modem_links.sh:system/etc/init.qcom.modem_links.sh \
     $(LOCAL_PATH)/rootdir/etc/init.qcom.post_boot.sh:system/etc/init.qcom.post_boot.sh \
