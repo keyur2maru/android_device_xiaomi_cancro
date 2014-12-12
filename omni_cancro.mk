@@ -24,7 +24,7 @@ $(call inherit-product, vendor/omni/config/common.mk)
 
 # This is where we'd set a backup provider if we had one
 #$(call inherit-product, device/sample/products/backup_overlay.mk)
-$(call inherit-product, device/xiaomi/cancro/device.mk)
+$(call inherit-product, device/xiaomi/cancro/cancro.mk)
 
 # Discard inherited values and use our own instead.
 PRODUCT_NAME := omni_cancro
