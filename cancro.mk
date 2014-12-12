@@ -40,7 +40,7 @@ PRODUCT_PACKAGES += \
     init.qcom.rc \
     init.qcom.usb.rc \
     ueventd.qcom.rc 
-
+y
 # Init
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/init.class_main.sh:root/init.class_main.sh \
@@ -199,7 +199,7 @@ PRODUCT_COPY_FILES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    power.qcom
+    power.msm8974
 
 # QRNGD
 PRODUCT_PACKAGES += \
