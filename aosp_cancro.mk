@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-$(call inherit-product, device/xiaomi/cancro/canro.mk)
+$(call inherit-product, device/xiaomi/cancro/device.mk)
 
 PRODUCT_NAME := aosp_cancro
 

@@ -24,7 +24,7 @@ $(call inherit-product, vendor/omni/config/common.mk)
 
 # This is where we'd set a backup provider if we had one
 #$(call inherit-product, device/sample/products/backup_overlay.mk)
-$(call inherit-product, device/xiaomi/cancro/cancro.mk)
+$(call inherit-product, device/xiaomi/cancro/device.mk)
 
 # Discard inherited values and use our own instead.
 PRODUCT_NAME := omni_cancro
@@ -32,4 +32,8 @@ PRODUCT_DEVICE := cancro
 PRODUCT_MANUFACTURER := xiaomi
 PRODUCT_MODEL := MI 3W
 PRODUCT_BRAND := xiaomi
+## Use the latest approved GMS identifiers unless running a signed build
+PRODUCT_BUILD_PROP_OVERRIDES += BUILD_FINGERPRINT=Xiaomi/cancro/cancro:4.4.2/KVT49L/KXDMIBE16.0:user/release-keys PRIVATE_BUILD_DESC="cancro-user 4.4.2 KVT49L KXDMIBE16.0 release-keys"
+
+PRODUCT_BUILD_PROP_OVERRIDES += TARGET_DEVICE=cancro PRODUCT_NAME=cancro
 

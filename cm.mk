@@ -20,7 +20,7 @@ TARGET_SCREEN_WIDTH := 1080
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Inherit from cancro device
-$(call inherit-product, device/xiaomi/cancro/cancro.mk)
+$(call inherit-product, device/xiaomi/cancro/device.mk)
 
 # Enhanced NFC
 $(call inherit-product, vendor/cm/config/nfc_enhanced.mk)
